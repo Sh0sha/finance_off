@@ -1,0 +1,17 @@
+name: Run tests
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - "release"
+jobs:
+  test:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-dart/main/install.sh)
+      - run: flutter pub get
+      - run: flutter test
